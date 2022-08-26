@@ -6,6 +6,8 @@
  import '@testing-library/jest-dom';
  import React from 'react';
  import userEvent from '@testing-library/user-event';
+ import { Provider } from 'react-redux';
+ import store from '../../store'
  
  import Header from '.';
 import ShowCard from '.';
@@ -13,7 +15,7 @@ import ShowCard from '.';
  describe("ShowCard", () => {
 
     beforeEach(() => {
-        render(<ShowCard data={{ summary: "Test description", name: "Test name"}}/>)
+        render(<Provider store={store}><ShowCard data={{ summary: "Test description", name: "Test name"}}/></Provider>)
     })
 
     it("Displays the appropriate description", () => {
