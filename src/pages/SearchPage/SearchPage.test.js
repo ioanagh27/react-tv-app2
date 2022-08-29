@@ -7,6 +7,8 @@ import '@testing-library/jest-dom/extend-expect';
 import { screen, render, waitForElementToBeRemoved } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
+import { Provider } from 'react-redux';
+ import store from '../../store'
 
 import SearchPage from '.';
 
@@ -15,7 +17,7 @@ describe("SearchPage", () => {
     it("Displays no shows if none are found", async () => {
         jest.spyOn(axios, 'get').mockResolvedValueOnce({ data: [] });
 
-        render(<BrowserRouter><SearchPage /></BrowserRouter>)
+        render(<Provider store={store}><BrowserRouter><SearchPage /></BrowserRouter></Provider>)
 
         await waitForElementToBeRemoved(() => screen.queryByText('Loading...'))
 
@@ -29,7 +31,7 @@ describe("SearchPage", () => {
             {show: {id: 2, name: "A", summary: "A"}},
             {show: {id: 3, name: "A", summary: "A"}}]})
 
-        render(<BrowserRouter><SearchPage /></BrowserRouter>)
+        render(<Provider store={store}><BrowserRouter><SearchPage /></BrowserRouter></Provider>)
 
         await waitForElementToBeRemoved(() => screen.queryByText('Loading...'))
 
